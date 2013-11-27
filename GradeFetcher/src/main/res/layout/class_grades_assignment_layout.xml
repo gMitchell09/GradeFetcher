@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dip"
+            android:layout_marginRight="24dip">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center_vertical"
+                android:text="New Text"
+                android:id="@+id/assignName"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right|center_vertical"
+                android:text="97.5%"
+                android:id="@+id/assignGrade"
+                android:textAppearance="?android:attr/textAppearanceLarge"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
