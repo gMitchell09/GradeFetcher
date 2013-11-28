@@ -21,13 +21,21 @@ import android.widget.TextView;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -216,16 +224,28 @@ public class LoginActivity extends Activity {
 	        if (mEmail.contentEquals("TEST")) return false;
 
 	        AndroidHttpClient client = AndroidHttpClient.newInstance("Android");
-	        final HttpGet getRequest = new HttpGet(SCRIPT_URL);
-	        getRequest.addHeader("username", mEmail);
-	        getRequest.addHeader("password", mPassword);
-	        getRequest.addHeader("angelUrl", mUrl);
-	        getRequest.addHeader("json", "true");
-	        getRequest.addHeader("class", "*");
-	        getRequest.addHeader("ignoreUngraded", "true");
+            final HttpPost postRequest = new HttpPost(SCRIPT_URL);
+            postRequest.setHeader("username", mEmail);
+            postRequest.setHeader("password", mPassword);
+            postRequest.setHeader("angelUrl", mUrl);
+            postRequest.setHeader("json", "on");
+            postRequest.setHeader("class", "*");
 
-	        try {
-		        HttpResponse response = client.execute(getRequest);
+            List<NameValuePair> form = new ArrayList<NameValuePair>();
+            form.add(new BasicNameValuePair("username", mEmail));
+            form.add(new BasicNameValuePair("password", mPassword));
+            form.add(new BasicNameValuePair("angelUrl", mUrl));
+            form.add(new BasicNameValuePair("json", "on"));
+            form.add(new BasicNameValuePair("class", "*"));
+
+            try {
+                postRequest.setEntity(new UrlEncodedFormEntity(form, HTTP.UTF_8));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            try {
+		        HttpResponse response = client.execute(postRequest);
 		        final int statusCode = response.getStatusLine().getStatusCode();
 		        if (statusCode != HttpStatus.SC_OK) {
 			        Log.e("Angel Connect", "Error: " + statusCode + " while logging into Angel: " + SCRIPT_URL);
@@ -256,6 +276,7 @@ public class LoginActivity extends Activity {
 				        }
 				        catch (Exception squish) {}
 			        }
+                    Log.e("Grade Fetcher", result);
 			        mJSONObject = new JSONObject(result);
 		        }
             }
@@ -265,7 +286,7 @@ public class LoginActivity extends Activity {
 		    } finally {
 		        try {client.close();} catch (Exception squish) {}
 	        }
-	        return false;
+	        return true;
         }
 
         @Override
