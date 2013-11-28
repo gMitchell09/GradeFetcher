@@ -21,21 +21,28 @@ import android.widget.TextView;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+<<<<<<< HEAD
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
+=======
+import org.apache.http.client.methods.HttpGet;
+>>>>>>> dc361117fe7e5a9b4ed09755255df87c8f7ed455
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+<<<<<<< HEAD
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
+=======
+>>>>>>> dc361117fe7e5a9b4ed09755255df87c8f7ed455
 
 /**
  * Activity which displays a login screen to the user, offering registration as
@@ -224,6 +231,7 @@ public class LoginActivity extends Activity {
 	        if (mEmail.contentEquals("TEST")) return false;
 
 	        AndroidHttpClient client = AndroidHttpClient.newInstance("Android");
+<<<<<<< HEAD
             final HttpPost postRequest = new HttpPost(SCRIPT_URL);
             postRequest.setHeader("username", mEmail);
             postRequest.setHeader("password", mPassword);
@@ -246,6 +254,18 @@ public class LoginActivity extends Activity {
 
             try {
 		        HttpResponse response = client.execute(postRequest);
+=======
+	        final HttpGet getRequest = new HttpGet(SCRIPT_URL);
+	        getRequest.addHeader("username", mEmail);
+	        getRequest.addHeader("password", mPassword);
+	        getRequest.addHeader("angelUrl", mUrl);
+	        getRequest.addHeader("json", "true");
+	        getRequest.addHeader("class", "*");
+	        getRequest.addHeader("ignoreUngraded", "true");
+
+	        try {
+		        HttpResponse response = client.execute(getRequest);
+>>>>>>> dc361117fe7e5a9b4ed09755255df87c8f7ed455
 		        final int statusCode = response.getStatusLine().getStatusCode();
 		        if (statusCode != HttpStatus.SC_OK) {
 			        Log.e("Angel Connect", "Error: " + statusCode + " while logging into Angel: " + SCRIPT_URL);
@@ -276,7 +296,10 @@ public class LoginActivity extends Activity {
 				        }
 				        catch (Exception squish) {}
 			        }
+<<<<<<< HEAD
                     Log.e("Grade Fetcher", result);
+=======
+>>>>>>> dc361117fe7e5a9b4ed09755255df87c8f7ed455
 			        mJSONObject = new JSONObject(result);
 		        }
             }
@@ -286,7 +309,11 @@ public class LoginActivity extends Activity {
 		    } finally {
 		        try {client.close();} catch (Exception squish) {}
 	        }
+<<<<<<< HEAD
 	        return true;
+=======
+	        return false;
+>>>>>>> dc361117fe7e5a9b4ed09755255df87c8f7ed455
         }
 
         @Override

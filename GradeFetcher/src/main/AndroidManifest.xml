@@ -9,7 +9,10 @@
         android:targetSdkVersion="17" />
 
     <uses-permission android:name="android.permission.INTERNET" />
+<<<<<<< HEAD
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+=======
+>>>>>>> dc361117fe7e5a9b4ed09755255df87c8f7ed455
 
     <application
         android:allowBackup="true"
